@@ -1,0 +1,2577 @@
+Grammar:
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID ; block .
+Rule 2     block -> variable_declaration_part function_declaration_part procedure_declaration_part statement_part
+Rule 3     variable_declaration_part -> VAR variable_declaration_list
+Rule 4     variable_declaration_part -> empty
+Rule 5     variable_declaration_list -> variable_declaration_list variable_declaration ;
+Rule 6     variable_declaration_list -> variable_declaration ;
+Rule 7     variable_declaration -> ID_list : type
+Rule 8     ID_list -> ID
+Rule 9     ID_list -> ID_list , ID
+Rule 10    type -> array_type
+Rule 11    type -> simple_type
+Rule 12    array_type -> ARRAY [ index_range ] OF simple_type
+Rule 13    index_range -> CONST_INTEGER RANGE CONST_INTEGER
+Rule 14    simple_type -> type_identifier
+Rule 15    type_identifier -> predefined_type
+Rule 16    type_identifier -> ID
+Rule 17    predefined_type -> FLOAT
+Rule 18    predefined_type -> BOOLEAN
+Rule 19    predefined_type -> INTEGER
+Rule 20    procedure_declaration_part -> procedure_declaration_part procedure_declaration ;
+Rule 21    procedure_declaration_part -> empty
+Rule 22    function_declaration_part -> function_declaration_part function_declaration ;
+Rule 23    function_declaration_part -> empty
+Rule 24    function_declaration -> FUNCTION ID ( ) : type ; block
+Rule 25    function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : type ; block
+Rule 26    variable_declaration_list_function -> variable_declaration_list_function ; variable_declaration
+Rule 27    variable_declaration_list_function -> variable_declaration
+Rule 28    procedure_declaration -> PROCEDURE ID ; block
+Rule 29    statement_part -> compound_statement
+Rule 30    compound_statement -> BEGIN statement_list END
+Rule 31    statement_list -> statement_list ; statement
+Rule 32    statement_list -> statement
+Rule 33    statement -> structured_statement
+Rule 34    statement -> simple_statement
+Rule 35    simple_statement -> write_statement
+Rule 36    simple_statement -> read_statement
+Rule 37    simple_statement -> procedure_statement
+Rule 38    simple_statement -> assignment_statement
+Rule 39    assignment_statement -> variable ASSIGN expression
+Rule 40    procedure_statement -> ID
+Rule 41    read_statement -> READ ( variable_list )
+Rule 42    variable_list -> variable_list , variable
+Rule 43    variable_list -> variable
+Rule 44    write_statement -> WRITE ( expression_list )
+Rule 45    expression_list -> expression_list , expression
+Rule 46    expression_list -> expression
+Rule 47    structured_statement -> while_statement
+Rule 48    structured_statement -> if_else_statement
+Rule 49    structured_statement -> if_statement
+Rule 50    structured_statement -> statement_part
+Rule 51    if_statement -> IF expression THEN statement
+Rule 52    if_else_statement -> IF expression THEN statement ELSE statement
+Rule 53    while_statement -> WHILE expression DO statement
+Rule 54    expression -> simple_expression relational_operator simple_expression
+Rule 55    expression -> simple_expression
+Rule 56    simple_expression -> simple_expression adding_operator term
+Rule 57    simple_expression -> sign term
+Rule 58    simple_expression -> term
+Rule 59    term -> term multiplying_operator factor
+Rule 60    term -> factor
+Rule 61    factor -> NOT factor
+Rule 62    factor -> ( expression )
+Rule 63    factor -> constant
+Rule 64    factor -> variable
+Rule 65    factor -> ID ( expression_list )
+Rule 66    relational_operator -> GE
+Rule 67    relational_operator -> GT
+Rule 68    relational_operator -> LE
+Rule 69    relational_operator -> LT
+Rule 70    relational_operator -> NE
+Rule 71    relational_operator -> EQ
+Rule 72    sign -> MINUS
+Rule 73    sign -> PLUS
+Rule 74    adding_operator -> OR
+Rule 75    adding_operator -> MINUS
+Rule 76    adding_operator -> PLUS
+Rule 77    multiplying_operator -> AND
+Rule 78    multiplying_operator -> DIV
+Rule 79    multiplying_operator -> DIVIDE
+Rule 80    multiplying_operator -> TIMES
+Rule 81    variable -> indexed_variable
+Rule 82    variable -> ID
+Rule 83    indexed_variable -> ID [ expression ]
+Rule 84    constant -> CONST_BOOL
+Rule 85    constant -> CONST_CHARACTER
+Rule 86    constant -> REAL
+Rule 87    constant -> CONST_INTEGER
+Rule 88    empty -> <empty>
+
+Terminals, with rules where they appear:
+
+(                    : 24 25 41 44 62 65
+)                    : 24 25 41 44 62 65
+,                    : 9 42 45
+.                    : 1
+:                    : 7 24 25
+;                    : 1 5 6 20 22 24 25 26 28 31
+AND                  : 77
+ARRAY                : 12
+ASSIGN               : 39
+BEGIN                : 30
+BOOLEAN              : 18
+CONST_BOOL           : 84
+CONST_CHARACTER      : 85
+CONST_INTEGER        : 13 13 87
+DIV                  : 78
+DIVIDE               : 79
+DO                   : 53
+ELSE                 : 52
+END                  : 30
+EQ                   : 71
+FLOAT                : 17
+FUNCTION             : 24 25
+GE                   : 66
+GT                   : 67
+ID                   : 1 8 9 16 24 25 28 40 65 82 83
+IF                   : 51 52
+INTEGER              : 19
+LE                   : 68
+LT                   : 69
+MINUS                : 72 75
+NE                   : 70
+NOT                  : 61
+OF                   : 12
+OR                   : 74
+PLUS                 : 73 76
+PROCEDURE            : 28
+PROGRAM              : 1
+RANGE                : 13
+READ                 : 41
+REAL                 : 86
+THEN                 : 51 52
+TIMES                : 80
+VAR                  : 3
+WHILE                : 53
+WRITE                : 44
+[                    : 12 83
+]                    : 12 83
+error                : 
+
+Nonterminals, with rules where they appear:
+
+ID_list              : 7 9
+adding_operator      : 56
+array_type           : 10
+assignment_statement : 38
+block                : 1 24 25 28
+compound_statement   : 29
+constant             : 63
+empty                : 4 21 23
+expression           : 39 45 46 51 52 53 62 83
+expression_list      : 44 45 65
+factor               : 59 60 61
+function_declaration : 22
+function_declaration_part : 2 22
+if_else_statement    : 48
+if_statement         : 49
+index_range          : 12
+indexed_variable     : 81
+multiplying_operator : 59
+predefined_type      : 15
+procedure_declaration : 20
+procedure_declaration_part : 2 20
+procedure_statement  : 37
+program              : 0
+read_statement       : 36
+relational_operator  : 54
+sign                 : 57
+simple_expression    : 54 54 55 56
+simple_statement     : 34
+simple_type          : 11 12
+statement            : 31 32 51 52 52 53
+statement_list       : 30 31
+statement_part       : 2 50
+structured_statement : 33
+term                 : 56 57 58 59
+type                 : 7 24 25
+type_identifier      : 14
+variable             : 39 42 43 64
+variable_declaration : 5 6 26 27
+variable_declaration_list : 3 5
+variable_declaration_list_function : 25 26
+variable_declaration_part : 2
+variable_list        : 41 42
+while_statement      : 47
+write_statement      : 35
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID ; block .
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+state 2
+
+    (1) program -> PROGRAM . ID ; block .
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . ; block .
+    ;               shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID ; . block .
+    (2) block -> . variable_declaration_part function_declaration_part procedure_declaration_part statement_part
+    (3) variable_declaration_part -> . VAR variable_declaration_list
+    (4) variable_declaration_part -> . empty
+    (88) empty -> .
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 88 (empty -> .)
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    block                          shift and go to state 5
+    variable_declaration_part      shift and go to state 6
+    empty                          shift and go to state 8
+
+state 5
+
+    (1) program -> PROGRAM ID ; block . .
+    .               shift and go to state 9
+
+
+state 6
+
+    (2) block -> variable_declaration_part . function_declaration_part procedure_declaration_part statement_part
+    (22) function_declaration_part -> . function_declaration_part function_declaration ;
+    (23) function_declaration_part -> . empty
+    (88) empty -> .
+    FUNCTION        reduce using rule 88 (empty -> .)
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    function_declaration_part      shift and go to state 10
+    empty                          shift and go to state 11
+
+state 7
+
+    (3) variable_declaration_part -> VAR . variable_declaration_list
+    (5) variable_declaration_list -> . variable_declaration_list variable_declaration ;
+    (6) variable_declaration_list -> . variable_declaration ;
+    (7) variable_declaration -> . ID_list : type
+    (8) ID_list -> . ID
+    (9) ID_list -> . ID_list , ID
+    ID              shift and go to state 15
+
+    variable_declaration_list      shift and go to state 12
+    variable_declaration           shift and go to state 13
+    ID_list                        shift and go to state 14
+
+state 8
+
+    (4) variable_declaration_part -> empty .
+    FUNCTION        reduce using rule 4 (variable_declaration_part -> empty .)
+    PROCEDURE       reduce using rule 4 (variable_declaration_part -> empty .)
+    BEGIN           reduce using rule 4 (variable_declaration_part -> empty .)
+
+
+state 9
+
+    (1) program -> PROGRAM ID ; block . .
+    $end            reduce using rule 1 (program -> PROGRAM ID ; block . .)
+
+
+state 10
+
+    (2) block -> variable_declaration_part function_declaration_part . procedure_declaration_part statement_part
+    (22) function_declaration_part -> function_declaration_part . function_declaration ;
+    (20) procedure_declaration_part -> . procedure_declaration_part procedure_declaration ;
+    (21) procedure_declaration_part -> . empty
+    (24) function_declaration -> . FUNCTION ID ( ) : type ; block
+    (25) function_declaration -> . FUNCTION ID ( variable_declaration_list_function ) : type ; block
+    (88) empty -> .
+    FUNCTION        shift and go to state 19
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    procedure_declaration_part     shift and go to state 16
+    function_declaration           shift and go to state 17
+    empty                          shift and go to state 18
+
+state 11
+
+    (23) function_declaration_part -> empty .
+    FUNCTION        reduce using rule 23 (function_declaration_part -> empty .)
+    PROCEDURE       reduce using rule 23 (function_declaration_part -> empty .)
+    BEGIN           reduce using rule 23 (function_declaration_part -> empty .)
+
+
+state 12
+
+    (3) variable_declaration_part -> VAR variable_declaration_list .
+    (5) variable_declaration_list -> variable_declaration_list . variable_declaration ;
+    (7) variable_declaration -> . ID_list : type
+    (8) ID_list -> . ID
+    (9) ID_list -> . ID_list , ID
+    FUNCTION        reduce using rule 3 (variable_declaration_part -> VAR variable_declaration_list .)
+    PROCEDURE       reduce using rule 3 (variable_declaration_part -> VAR variable_declaration_list .)
+    BEGIN           reduce using rule 3 (variable_declaration_part -> VAR variable_declaration_list .)
+    ID              shift and go to state 15
+
+    variable_declaration           shift and go to state 20
+    ID_list                        shift and go to state 14
+
+state 13
+
+    (6) variable_declaration_list -> variable_declaration . ;
+    ;               shift and go to state 21
+
+
+state 14
+
+    (7) variable_declaration -> ID_list . : type
+    (9) ID_list -> ID_list . , ID
+    :               shift and go to state 22
+    ,               shift and go to state 23
+
+
+state 15
+
+    (8) ID_list -> ID .
+    :               reduce using rule 8 (ID_list -> ID .)
+    ,               reduce using rule 8 (ID_list -> ID .)
+
+
+state 16
+
+    (2) block -> variable_declaration_part function_declaration_part procedure_declaration_part . statement_part
+    (20) procedure_declaration_part -> procedure_declaration_part . procedure_declaration ;
+    (29) statement_part -> . compound_statement
+    (28) procedure_declaration -> . PROCEDURE ID ; block
+    (30) compound_statement -> . BEGIN statement_list END
+    PROCEDURE       shift and go to state 27
+    BEGIN           shift and go to state 28
+
+    statement_part                 shift and go to state 24
+    procedure_declaration          shift and go to state 25
+    compound_statement             shift and go to state 26
+
+state 17
+
+    (22) function_declaration_part -> function_declaration_part function_declaration . ;
+    ;               shift and go to state 29
+
+
+state 18
+
+    (21) procedure_declaration_part -> empty .
+    PROCEDURE       reduce using rule 21 (procedure_declaration_part -> empty .)
+    BEGIN           reduce using rule 21 (procedure_declaration_part -> empty .)
+
+
+state 19
+
+    (24) function_declaration -> FUNCTION . ID ( ) : type ; block
+    (25) function_declaration -> FUNCTION . ID ( variable_declaration_list_function ) : type ; block
+    ID              shift and go to state 30
+
+
+state 20
+
+    (5) variable_declaration_list -> variable_declaration_list variable_declaration . ;
+    ;               shift and go to state 31
+
+
+state 21
+
+    (6) variable_declaration_list -> variable_declaration ; .
+    ID              reduce using rule 6 (variable_declaration_list -> variable_declaration ; .)
+    FUNCTION        reduce using rule 6 (variable_declaration_list -> variable_declaration ; .)
+    PROCEDURE       reduce using rule 6 (variable_declaration_list -> variable_declaration ; .)
+    BEGIN           reduce using rule 6 (variable_declaration_list -> variable_declaration ; .)
+
+
+state 22
+
+    (7) variable_declaration -> ID_list : . type
+    (10) type -> . array_type
+    (11) type -> . simple_type
+    (12) array_type -> . ARRAY [ index_range ] OF simple_type
+    (14) simple_type -> . type_identifier
+    (15) type_identifier -> . predefined_type
+    (16) type_identifier -> . ID
+    (17) predefined_type -> . FLOAT
+    (18) predefined_type -> . BOOLEAN
+    (19) predefined_type -> . INTEGER
+    ARRAY           shift and go to state 35
+    ID              shift and go to state 38
+    FLOAT           shift and go to state 39
+    BOOLEAN         shift and go to state 40
+    INTEGER         shift and go to state 41
+
+    type                           shift and go to state 32
+    array_type                     shift and go to state 33
+    simple_type                    shift and go to state 34
+    type_identifier                shift and go to state 36
+    predefined_type                shift and go to state 37
+
+state 23
+
+    (9) ID_list -> ID_list , . ID
+    ID              shift and go to state 42
+
+
+state 24
+
+    (2) block -> variable_declaration_part function_declaration_part procedure_declaration_part statement_part .
+    .               reduce using rule 2 (block -> variable_declaration_part function_declaration_part procedure_declaration_part statement_part .)
+    ;               reduce using rule 2 (block -> variable_declaration_part function_declaration_part procedure_declaration_part statement_part .)
+
+
+state 25
+
+    (20) procedure_declaration_part -> procedure_declaration_part procedure_declaration . ;
+    ;               shift and go to state 43
+
+
+state 26
+
+    (29) statement_part -> compound_statement .
+    .               reduce using rule 29 (statement_part -> compound_statement .)
+    ;               reduce using rule 29 (statement_part -> compound_statement .)
+    END             reduce using rule 29 (statement_part -> compound_statement .)
+    ELSE            reduce using rule 29 (statement_part -> compound_statement .)
+
+
+state 27
+
+    (28) procedure_declaration -> PROCEDURE . ID ; block
+    ID              shift and go to state 44
+
+
+state 28
+
+    (30) compound_statement -> BEGIN . statement_list END
+    (31) statement_list -> . statement_list ; statement
+    (32) statement_list -> . statement
+    (33) statement -> . structured_statement
+    (34) statement -> . simple_statement
+    (47) structured_statement -> . while_statement
+    (48) structured_statement -> . if_else_statement
+    (49) structured_statement -> . if_statement
+    (50) structured_statement -> . statement_part
+    (35) simple_statement -> . write_statement
+    (36) simple_statement -> . read_statement
+    (37) simple_statement -> . procedure_statement
+    (38) simple_statement -> . assignment_statement
+    (53) while_statement -> . WHILE expression DO statement
+    (52) if_else_statement -> . IF expression THEN statement ELSE statement
+    (51) if_statement -> . IF expression THEN statement
+    (29) statement_part -> . compound_statement
+    (44) write_statement -> . WRITE ( expression_list )
+    (41) read_statement -> . READ ( variable_list )
+    (40) procedure_statement -> . ID
+    (39) assignment_statement -> . variable ASSIGN expression
+    (30) compound_statement -> . BEGIN statement_list END
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    WHILE           shift and go to state 57
+    IF              shift and go to state 58
+    WRITE           shift and go to state 59
+    READ            shift and go to state 60
+    ID              shift and go to state 61
+    BEGIN           shift and go to state 28
+
+    statement_list                 shift and go to state 45
+    statement                      shift and go to state 46
+    structured_statement           shift and go to state 47
+    simple_statement               shift and go to state 48
+    while_statement                shift and go to state 49
+    if_else_statement              shift and go to state 50
+    if_statement                   shift and go to state 51
+    statement_part                 shift and go to state 52
+    write_statement                shift and go to state 53
+    read_statement                 shift and go to state 54
+    procedure_statement            shift and go to state 55
+    assignment_statement           shift and go to state 56
+    compound_statement             shift and go to state 26
+    variable                       shift and go to state 62
+    indexed_variable               shift and go to state 63
+
+state 29
+
+    (22) function_declaration_part -> function_declaration_part function_declaration ; .
+    FUNCTION        reduce using rule 22 (function_declaration_part -> function_declaration_part function_declaration ; .)
+    PROCEDURE       reduce using rule 22 (function_declaration_part -> function_declaration_part function_declaration ; .)
+    BEGIN           reduce using rule 22 (function_declaration_part -> function_declaration_part function_declaration ; .)
+
+
+state 30
+
+    (24) function_declaration -> FUNCTION ID . ( ) : type ; block
+    (25) function_declaration -> FUNCTION ID . ( variable_declaration_list_function ) : type ; block
+    (               shift and go to state 64
+
+
+state 31
+
+    (5) variable_declaration_list -> variable_declaration_list variable_declaration ; .
+    ID              reduce using rule 5 (variable_declaration_list -> variable_declaration_list variable_declaration ; .)
+    FUNCTION        reduce using rule 5 (variable_declaration_list -> variable_declaration_list variable_declaration ; .)
+    PROCEDURE       reduce using rule 5 (variable_declaration_list -> variable_declaration_list variable_declaration ; .)
+    BEGIN           reduce using rule 5 (variable_declaration_list -> variable_declaration_list variable_declaration ; .)
+
+
+state 32
+
+    (7) variable_declaration -> ID_list : type .
+    ;               reduce using rule 7 (variable_declaration -> ID_list : type .)
+    )               reduce using rule 7 (variable_declaration -> ID_list : type .)
+
+
+state 33
+
+    (10) type -> array_type .
+    ;               reduce using rule 10 (type -> array_type .)
+    )               reduce using rule 10 (type -> array_type .)
+
+
+state 34
+
+    (11) type -> simple_type .
+    ;               reduce using rule 11 (type -> simple_type .)
+    )               reduce using rule 11 (type -> simple_type .)
+
+
+state 35
+
+    (12) array_type -> ARRAY . [ index_range ] OF simple_type
+    [               shift and go to state 65
+
+
+state 36
+
+    (14) simple_type -> type_identifier .
+    ;               reduce using rule 14 (simple_type -> type_identifier .)
+    )               reduce using rule 14 (simple_type -> type_identifier .)
+
+
+state 37
+
+    (15) type_identifier -> predefined_type .
+    ;               reduce using rule 15 (type_identifier -> predefined_type .)
+    )               reduce using rule 15 (type_identifier -> predefined_type .)
+
+
+state 38
+
+    (16) type_identifier -> ID .
+    ;               reduce using rule 16 (type_identifier -> ID .)
+    )               reduce using rule 16 (type_identifier -> ID .)
+
+
+state 39
+
+    (17) predefined_type -> FLOAT .
+    ;               reduce using rule 17 (predefined_type -> FLOAT .)
+    )               reduce using rule 17 (predefined_type -> FLOAT .)
+
+
+state 40
+
+    (18) predefined_type -> BOOLEAN .
+    ;               reduce using rule 18 (predefined_type -> BOOLEAN .)
+    )               reduce using rule 18 (predefined_type -> BOOLEAN .)
+
+
+state 41
+
+    (19) predefined_type -> INTEGER .
+    ;               reduce using rule 19 (predefined_type -> INTEGER .)
+    )               reduce using rule 19 (predefined_type -> INTEGER .)
+
+
+state 42
+
+    (9) ID_list -> ID_list , ID .
+    :               reduce using rule 9 (ID_list -> ID_list , ID .)
+    ,               reduce using rule 9 (ID_list -> ID_list , ID .)
+
+
+state 43
+
+    (20) procedure_declaration_part -> procedure_declaration_part procedure_declaration ; .
+    PROCEDURE       reduce using rule 20 (procedure_declaration_part -> procedure_declaration_part procedure_declaration ; .)
+    BEGIN           reduce using rule 20 (procedure_declaration_part -> procedure_declaration_part procedure_declaration ; .)
+
+
+state 44
+
+    (28) procedure_declaration -> PROCEDURE ID . ; block
+    ;               shift and go to state 66
+
+
+state 45
+
+    (30) compound_statement -> BEGIN statement_list . END
+    (31) statement_list -> statement_list . ; statement
+    END             shift and go to state 67
+    ;               shift and go to state 68
+
+
+state 46
+
+    (32) statement_list -> statement .
+    END             reduce using rule 32 (statement_list -> statement .)
+    ;               reduce using rule 32 (statement_list -> statement .)
+
+
+state 47
+
+    (33) statement -> structured_statement .
+    END             reduce using rule 33 (statement -> structured_statement .)
+    ;               reduce using rule 33 (statement -> structured_statement .)
+    ELSE            reduce using rule 33 (statement -> structured_statement .)
+
+
+state 48
+
+    (34) statement -> simple_statement .
+    END             reduce using rule 34 (statement -> simple_statement .)
+    ;               reduce using rule 34 (statement -> simple_statement .)
+    ELSE            reduce using rule 34 (statement -> simple_statement .)
+
+
+state 49
+
+    (47) structured_statement -> while_statement .
+    END             reduce using rule 47 (structured_statement -> while_statement .)
+    ;               reduce using rule 47 (structured_statement -> while_statement .)
+    ELSE            reduce using rule 47 (structured_statement -> while_statement .)
+
+
+state 50
+
+    (48) structured_statement -> if_else_statement .
+    END             reduce using rule 48 (structured_statement -> if_else_statement .)
+    ;               reduce using rule 48 (structured_statement -> if_else_statement .)
+    ELSE            reduce using rule 48 (structured_statement -> if_else_statement .)
+
+
+state 51
+
+    (49) structured_statement -> if_statement .
+    END             reduce using rule 49 (structured_statement -> if_statement .)
+    ;               reduce using rule 49 (structured_statement -> if_statement .)
+    ELSE            reduce using rule 49 (structured_statement -> if_statement .)
+
+
+state 52
+
+    (50) structured_statement -> statement_part .
+    END             reduce using rule 50 (structured_statement -> statement_part .)
+    ;               reduce using rule 50 (structured_statement -> statement_part .)
+    ELSE            reduce using rule 50 (structured_statement -> statement_part .)
+
+
+state 53
+
+    (35) simple_statement -> write_statement .
+    END             reduce using rule 35 (simple_statement -> write_statement .)
+    ;               reduce using rule 35 (simple_statement -> write_statement .)
+    ELSE            reduce using rule 35 (simple_statement -> write_statement .)
+
+
+state 54
+
+    (36) simple_statement -> read_statement .
+    END             reduce using rule 36 (simple_statement -> read_statement .)
+    ;               reduce using rule 36 (simple_statement -> read_statement .)
+    ELSE            reduce using rule 36 (simple_statement -> read_statement .)
+
+
+state 55
+
+    (37) simple_statement -> procedure_statement .
+    END             reduce using rule 37 (simple_statement -> procedure_statement .)
+    ;               reduce using rule 37 (simple_statement -> procedure_statement .)
+    ELSE            reduce using rule 37 (simple_statement -> procedure_statement .)
+
+
+state 56
+
+    (38) simple_statement -> assignment_statement .
+    END             reduce using rule 38 (simple_statement -> assignment_statement .)
+    ;               reduce using rule 38 (simple_statement -> assignment_statement .)
+    ELSE            reduce using rule 38 (simple_statement -> assignment_statement .)
+
+
+state 57
+
+    (53) while_statement -> WHILE . expression DO statement
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression                     shift and go to state 69
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 58
+
+    (52) if_else_statement -> IF . expression THEN statement ELSE statement
+    (51) if_statement -> IF . expression THEN statement
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression                     shift and go to state 85
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 59
+
+    (44) write_statement -> WRITE . ( expression_list )
+    (               shift and go to state 86
+
+
+state 60
+
+    (41) read_statement -> READ . ( variable_list )
+    (               shift and go to state 87
+
+
+state 61
+
+    (40) procedure_statement -> ID .
+    (82) variable -> ID .
+    (83) indexed_variable -> ID . [ expression ]
+    END             reduce using rule 40 (procedure_statement -> ID .)
+    ;               reduce using rule 40 (procedure_statement -> ID .)
+    ELSE            reduce using rule 40 (procedure_statement -> ID .)
+    ASSIGN          reduce using rule 82 (variable -> ID .)
+    [               shift and go to state 88
+
+
+state 62
+
+    (39) assignment_statement -> variable . ASSIGN expression
+    ASSIGN          shift and go to state 89
+
+
+state 63
+
+    (81) variable -> indexed_variable .
+    ASSIGN          reduce using rule 81 (variable -> indexed_variable .)
+    AND             reduce using rule 81 (variable -> indexed_variable .)
+    DIV             reduce using rule 81 (variable -> indexed_variable .)
+    DIVIDE          reduce using rule 81 (variable -> indexed_variable .)
+    TIMES           reduce using rule 81 (variable -> indexed_variable .)
+    GE              reduce using rule 81 (variable -> indexed_variable .)
+    GT              reduce using rule 81 (variable -> indexed_variable .)
+    LE              reduce using rule 81 (variable -> indexed_variable .)
+    LT              reduce using rule 81 (variable -> indexed_variable .)
+    NE              reduce using rule 81 (variable -> indexed_variable .)
+    EQ              reduce using rule 81 (variable -> indexed_variable .)
+    OR              reduce using rule 81 (variable -> indexed_variable .)
+    MINUS           reduce using rule 81 (variable -> indexed_variable .)
+    PLUS            reduce using rule 81 (variable -> indexed_variable .)
+    DO              reduce using rule 81 (variable -> indexed_variable .)
+    THEN            reduce using rule 81 (variable -> indexed_variable .)
+    )               reduce using rule 81 (variable -> indexed_variable .)
+    ,               reduce using rule 81 (variable -> indexed_variable .)
+    ]               reduce using rule 81 (variable -> indexed_variable .)
+    END             reduce using rule 81 (variable -> indexed_variable .)
+    ;               reduce using rule 81 (variable -> indexed_variable .)
+    ELSE            reduce using rule 81 (variable -> indexed_variable .)
+
+
+state 64
+
+    (24) function_declaration -> FUNCTION ID ( . ) : type ; block
+    (25) function_declaration -> FUNCTION ID ( . variable_declaration_list_function ) : type ; block
+    (26) variable_declaration_list_function -> . variable_declaration_list_function ; variable_declaration
+    (27) variable_declaration_list_function -> . variable_declaration
+    (7) variable_declaration -> . ID_list : type
+    (8) ID_list -> . ID
+    (9) ID_list -> . ID_list , ID
+    )               shift and go to state 90
+    ID              shift and go to state 15
+
+    variable_declaration_list_function shift and go to state 91
+    variable_declaration           shift and go to state 92
+    ID_list                        shift and go to state 14
+
+state 65
+
+    (12) array_type -> ARRAY [ . index_range ] OF simple_type
+    (13) index_range -> . CONST_INTEGER RANGE CONST_INTEGER
+    CONST_INTEGER   shift and go to state 94
+
+    index_range                    shift and go to state 93
+
+state 66
+
+    (28) procedure_declaration -> PROCEDURE ID ; . block
+    (2) block -> . variable_declaration_part function_declaration_part procedure_declaration_part statement_part
+    (3) variable_declaration_part -> . VAR variable_declaration_list
+    (4) variable_declaration_part -> . empty
+    (88) empty -> .
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 88 (empty -> .)
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    block                          shift and go to state 95
+    variable_declaration_part      shift and go to state 6
+    empty                          shift and go to state 8
+
+state 67
+
+    (30) compound_statement -> BEGIN statement_list END .
+    .               reduce using rule 30 (compound_statement -> BEGIN statement_list END .)
+    ;               reduce using rule 30 (compound_statement -> BEGIN statement_list END .)
+    END             reduce using rule 30 (compound_statement -> BEGIN statement_list END .)
+    ELSE            reduce using rule 30 (compound_statement -> BEGIN statement_list END .)
+
+
+state 68
+
+    (31) statement_list -> statement_list ; . statement
+    (33) statement -> . structured_statement
+    (34) statement -> . simple_statement
+    (47) structured_statement -> . while_statement
+    (48) structured_statement -> . if_else_statement
+    (49) structured_statement -> . if_statement
+    (50) structured_statement -> . statement_part
+    (35) simple_statement -> . write_statement
+    (36) simple_statement -> . read_statement
+    (37) simple_statement -> . procedure_statement
+    (38) simple_statement -> . assignment_statement
+    (53) while_statement -> . WHILE expression DO statement
+    (52) if_else_statement -> . IF expression THEN statement ELSE statement
+    (51) if_statement -> . IF expression THEN statement
+    (29) statement_part -> . compound_statement
+    (44) write_statement -> . WRITE ( expression_list )
+    (41) read_statement -> . READ ( variable_list )
+    (40) procedure_statement -> . ID
+    (39) assignment_statement -> . variable ASSIGN expression
+    (30) compound_statement -> . BEGIN statement_list END
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    WHILE           shift and go to state 57
+    IF              shift and go to state 58
+    WRITE           shift and go to state 59
+    READ            shift and go to state 60
+    ID              shift and go to state 61
+    BEGIN           shift and go to state 28
+
+    statement                      shift and go to state 96
+    structured_statement           shift and go to state 47
+    simple_statement               shift and go to state 48
+    while_statement                shift and go to state 49
+    if_else_statement              shift and go to state 50
+    if_statement                   shift and go to state 51
+    statement_part                 shift and go to state 52
+    write_statement                shift and go to state 53
+    read_statement                 shift and go to state 54
+    procedure_statement            shift and go to state 55
+    assignment_statement           shift and go to state 56
+    compound_statement             shift and go to state 26
+    variable                       shift and go to state 62
+    indexed_variable               shift and go to state 63
+
+state 69
+
+    (53) while_statement -> WHILE expression . DO statement
+    DO              shift and go to state 97
+
+
+state 70
+
+    (54) expression -> simple_expression . relational_operator simple_expression
+    (55) expression -> simple_expression .
+    (56) simple_expression -> simple_expression . adding_operator term
+    (66) relational_operator -> . GE
+    (67) relational_operator -> . GT
+    (68) relational_operator -> . LE
+    (69) relational_operator -> . LT
+    (70) relational_operator -> . NE
+    (71) relational_operator -> . EQ
+    (74) adding_operator -> . OR
+    (75) adding_operator -> . MINUS
+    (76) adding_operator -> . PLUS
+    DO              reduce using rule 55 (expression -> simple_expression .)
+    THEN            reduce using rule 55 (expression -> simple_expression .)
+    )               reduce using rule 55 (expression -> simple_expression .)
+    ,               reduce using rule 55 (expression -> simple_expression .)
+    ]               reduce using rule 55 (expression -> simple_expression .)
+    END             reduce using rule 55 (expression -> simple_expression .)
+    ;               reduce using rule 55 (expression -> simple_expression .)
+    ELSE            reduce using rule 55 (expression -> simple_expression .)
+    GE              shift and go to state 100
+    GT              shift and go to state 101
+    LE              shift and go to state 102
+    LT              shift and go to state 103
+    NE              shift and go to state 104
+    EQ              shift and go to state 105
+    OR              shift and go to state 106
+    MINUS           shift and go to state 107
+    PLUS            shift and go to state 108
+
+    relational_operator            shift and go to state 98
+    adding_operator                shift and go to state 99
+
+state 71
+
+    (58) simple_expression -> term .
+    (59) term -> term . multiplying_operator factor
+    (77) multiplying_operator -> . AND
+    (78) multiplying_operator -> . DIV
+    (79) multiplying_operator -> . DIVIDE
+    (80) multiplying_operator -> . TIMES
+    GE              reduce using rule 58 (simple_expression -> term .)
+    GT              reduce using rule 58 (simple_expression -> term .)
+    LE              reduce using rule 58 (simple_expression -> term .)
+    LT              reduce using rule 58 (simple_expression -> term .)
+    NE              reduce using rule 58 (simple_expression -> term .)
+    EQ              reduce using rule 58 (simple_expression -> term .)
+    OR              reduce using rule 58 (simple_expression -> term .)
+    MINUS           reduce using rule 58 (simple_expression -> term .)
+    PLUS            reduce using rule 58 (simple_expression -> term .)
+    DO              reduce using rule 58 (simple_expression -> term .)
+    THEN            reduce using rule 58 (simple_expression -> term .)
+    )               reduce using rule 58 (simple_expression -> term .)
+    ,               reduce using rule 58 (simple_expression -> term .)
+    ]               reduce using rule 58 (simple_expression -> term .)
+    END             reduce using rule 58 (simple_expression -> term .)
+    ;               reduce using rule 58 (simple_expression -> term .)
+    ELSE            reduce using rule 58 (simple_expression -> term .)
+    AND             shift and go to state 110
+    DIV             shift and go to state 111
+    DIVIDE          shift and go to state 112
+    TIMES           shift and go to state 113
+
+    multiplying_operator           shift and go to state 109
+
+state 72
+
+    (57) simple_expression -> sign . term
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    term                           shift and go to state 114
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 73
+
+    (72) sign -> MINUS .
+    NOT             reduce using rule 72 (sign -> MINUS .)
+    (               reduce using rule 72 (sign -> MINUS .)
+    ID              reduce using rule 72 (sign -> MINUS .)
+    CONST_BOOL      reduce using rule 72 (sign -> MINUS .)
+    CONST_CHARACTER reduce using rule 72 (sign -> MINUS .)
+    REAL            reduce using rule 72 (sign -> MINUS .)
+    CONST_INTEGER   reduce using rule 72 (sign -> MINUS .)
+
+
+state 74
+
+    (73) sign -> PLUS .
+    NOT             reduce using rule 73 (sign -> PLUS .)
+    (               reduce using rule 73 (sign -> PLUS .)
+    ID              reduce using rule 73 (sign -> PLUS .)
+    CONST_BOOL      reduce using rule 73 (sign -> PLUS .)
+    CONST_CHARACTER reduce using rule 73 (sign -> PLUS .)
+    REAL            reduce using rule 73 (sign -> PLUS .)
+    CONST_INTEGER   reduce using rule 73 (sign -> PLUS .)
+
+
+state 75
+
+    (60) term -> factor .
+    AND             reduce using rule 60 (term -> factor .)
+    DIV             reduce using rule 60 (term -> factor .)
+    DIVIDE          reduce using rule 60 (term -> factor .)
+    TIMES           reduce using rule 60 (term -> factor .)
+    GE              reduce using rule 60 (term -> factor .)
+    GT              reduce using rule 60 (term -> factor .)
+    LE              reduce using rule 60 (term -> factor .)
+    LT              reduce using rule 60 (term -> factor .)
+    NE              reduce using rule 60 (term -> factor .)
+    EQ              reduce using rule 60 (term -> factor .)
+    OR              reduce using rule 60 (term -> factor .)
+    MINUS           reduce using rule 60 (term -> factor .)
+    PLUS            reduce using rule 60 (term -> factor .)
+    DO              reduce using rule 60 (term -> factor .)
+    THEN            reduce using rule 60 (term -> factor .)
+    )               reduce using rule 60 (term -> factor .)
+    ,               reduce using rule 60 (term -> factor .)
+    ]               reduce using rule 60 (term -> factor .)
+    END             reduce using rule 60 (term -> factor .)
+    ;               reduce using rule 60 (term -> factor .)
+    ELSE            reduce using rule 60 (term -> factor .)
+
+
+state 76
+
+    (61) factor -> NOT . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    factor                         shift and go to state 115
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 77
+
+    (62) factor -> ( . expression )
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression                     shift and go to state 116
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 78
+
+    (63) factor -> constant .
+    AND             reduce using rule 63 (factor -> constant .)
+    DIV             reduce using rule 63 (factor -> constant .)
+    DIVIDE          reduce using rule 63 (factor -> constant .)
+    TIMES           reduce using rule 63 (factor -> constant .)
+    GE              reduce using rule 63 (factor -> constant .)
+    GT              reduce using rule 63 (factor -> constant .)
+    LE              reduce using rule 63 (factor -> constant .)
+    LT              reduce using rule 63 (factor -> constant .)
+    NE              reduce using rule 63 (factor -> constant .)
+    EQ              reduce using rule 63 (factor -> constant .)
+    OR              reduce using rule 63 (factor -> constant .)
+    MINUS           reduce using rule 63 (factor -> constant .)
+    PLUS            reduce using rule 63 (factor -> constant .)
+    DO              reduce using rule 63 (factor -> constant .)
+    THEN            reduce using rule 63 (factor -> constant .)
+    )               reduce using rule 63 (factor -> constant .)
+    ,               reduce using rule 63 (factor -> constant .)
+    ]               reduce using rule 63 (factor -> constant .)
+    END             reduce using rule 63 (factor -> constant .)
+    ;               reduce using rule 63 (factor -> constant .)
+    ELSE            reduce using rule 63 (factor -> constant .)
+
+
+state 79
+
+    (64) factor -> variable .
+    AND             reduce using rule 64 (factor -> variable .)
+    DIV             reduce using rule 64 (factor -> variable .)
+    DIVIDE          reduce using rule 64 (factor -> variable .)
+    TIMES           reduce using rule 64 (factor -> variable .)
+    GE              reduce using rule 64 (factor -> variable .)
+    GT              reduce using rule 64 (factor -> variable .)
+    LE              reduce using rule 64 (factor -> variable .)
+    LT              reduce using rule 64 (factor -> variable .)
+    NE              reduce using rule 64 (factor -> variable .)
+    EQ              reduce using rule 64 (factor -> variable .)
+    OR              reduce using rule 64 (factor -> variable .)
+    MINUS           reduce using rule 64 (factor -> variable .)
+    PLUS            reduce using rule 64 (factor -> variable .)
+    DO              reduce using rule 64 (factor -> variable .)
+    THEN            reduce using rule 64 (factor -> variable .)
+    )               reduce using rule 64 (factor -> variable .)
+    ,               reduce using rule 64 (factor -> variable .)
+    ]               reduce using rule 64 (factor -> variable .)
+    END             reduce using rule 64 (factor -> variable .)
+    ;               reduce using rule 64 (factor -> variable .)
+    ELSE            reduce using rule 64 (factor -> variable .)
+
+
+state 80
+
+    (65) factor -> ID . ( expression_list )
+    (82) variable -> ID .
+    (83) indexed_variable -> ID . [ expression ]
+    (               shift and go to state 117
+    AND             reduce using rule 82 (variable -> ID .)
+    DIV             reduce using rule 82 (variable -> ID .)
+    DIVIDE          reduce using rule 82 (variable -> ID .)
+    TIMES           reduce using rule 82 (variable -> ID .)
+    GE              reduce using rule 82 (variable -> ID .)
+    GT              reduce using rule 82 (variable -> ID .)
+    LE              reduce using rule 82 (variable -> ID .)
+    LT              reduce using rule 82 (variable -> ID .)
+    NE              reduce using rule 82 (variable -> ID .)
+    EQ              reduce using rule 82 (variable -> ID .)
+    OR              reduce using rule 82 (variable -> ID .)
+    MINUS           reduce using rule 82 (variable -> ID .)
+    PLUS            reduce using rule 82 (variable -> ID .)
+    DO              reduce using rule 82 (variable -> ID .)
+    THEN            reduce using rule 82 (variable -> ID .)
+    )               reduce using rule 82 (variable -> ID .)
+    ,               reduce using rule 82 (variable -> ID .)
+    ]               reduce using rule 82 (variable -> ID .)
+    END             reduce using rule 82 (variable -> ID .)
+    ;               reduce using rule 82 (variable -> ID .)
+    ELSE            reduce using rule 82 (variable -> ID .)
+    [               shift and go to state 88
+
+
+state 81
+
+    (84) constant -> CONST_BOOL .
+    AND             reduce using rule 84 (constant -> CONST_BOOL .)
+    DIV             reduce using rule 84 (constant -> CONST_BOOL .)
+    DIVIDE          reduce using rule 84 (constant -> CONST_BOOL .)
+    TIMES           reduce using rule 84 (constant -> CONST_BOOL .)
+    GE              reduce using rule 84 (constant -> CONST_BOOL .)
+    GT              reduce using rule 84 (constant -> CONST_BOOL .)
+    LE              reduce using rule 84 (constant -> CONST_BOOL .)
+    LT              reduce using rule 84 (constant -> CONST_BOOL .)
+    NE              reduce using rule 84 (constant -> CONST_BOOL .)
+    EQ              reduce using rule 84 (constant -> CONST_BOOL .)
+    OR              reduce using rule 84 (constant -> CONST_BOOL .)
+    MINUS           reduce using rule 84 (constant -> CONST_BOOL .)
+    PLUS            reduce using rule 84 (constant -> CONST_BOOL .)
+    DO              reduce using rule 84 (constant -> CONST_BOOL .)
+    THEN            reduce using rule 84 (constant -> CONST_BOOL .)
+    )               reduce using rule 84 (constant -> CONST_BOOL .)
+    ,               reduce using rule 84 (constant -> CONST_BOOL .)
+    ]               reduce using rule 84 (constant -> CONST_BOOL .)
+    END             reduce using rule 84 (constant -> CONST_BOOL .)
+    ;               reduce using rule 84 (constant -> CONST_BOOL .)
+    ELSE            reduce using rule 84 (constant -> CONST_BOOL .)
+
+
+state 82
+
+    (85) constant -> CONST_CHARACTER .
+    AND             reduce using rule 85 (constant -> CONST_CHARACTER .)
+    DIV             reduce using rule 85 (constant -> CONST_CHARACTER .)
+    DIVIDE          reduce using rule 85 (constant -> CONST_CHARACTER .)
+    TIMES           reduce using rule 85 (constant -> CONST_CHARACTER .)
+    GE              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    GT              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    LE              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    LT              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    NE              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    EQ              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    OR              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    MINUS           reduce using rule 85 (constant -> CONST_CHARACTER .)
+    PLUS            reduce using rule 85 (constant -> CONST_CHARACTER .)
+    DO              reduce using rule 85 (constant -> CONST_CHARACTER .)
+    THEN            reduce using rule 85 (constant -> CONST_CHARACTER .)
+    )               reduce using rule 85 (constant -> CONST_CHARACTER .)
+    ,               reduce using rule 85 (constant -> CONST_CHARACTER .)
+    ]               reduce using rule 85 (constant -> CONST_CHARACTER .)
+    END             reduce using rule 85 (constant -> CONST_CHARACTER .)
+    ;               reduce using rule 85 (constant -> CONST_CHARACTER .)
+    ELSE            reduce using rule 85 (constant -> CONST_CHARACTER .)
+
+
+state 83
+
+    (86) constant -> REAL .
+    AND             reduce using rule 86 (constant -> REAL .)
+    DIV             reduce using rule 86 (constant -> REAL .)
+    DIVIDE          reduce using rule 86 (constant -> REAL .)
+    TIMES           reduce using rule 86 (constant -> REAL .)
+    GE              reduce using rule 86 (constant -> REAL .)
+    GT              reduce using rule 86 (constant -> REAL .)
+    LE              reduce using rule 86 (constant -> REAL .)
+    LT              reduce using rule 86 (constant -> REAL .)
+    NE              reduce using rule 86 (constant -> REAL .)
+    EQ              reduce using rule 86 (constant -> REAL .)
+    OR              reduce using rule 86 (constant -> REAL .)
+    MINUS           reduce using rule 86 (constant -> REAL .)
+    PLUS            reduce using rule 86 (constant -> REAL .)
+    DO              reduce using rule 86 (constant -> REAL .)
+    THEN            reduce using rule 86 (constant -> REAL .)
+    )               reduce using rule 86 (constant -> REAL .)
+    ,               reduce using rule 86 (constant -> REAL .)
+    ]               reduce using rule 86 (constant -> REAL .)
+    END             reduce using rule 86 (constant -> REAL .)
+    ;               reduce using rule 86 (constant -> REAL .)
+    ELSE            reduce using rule 86 (constant -> REAL .)
+
+
+state 84
+
+    (87) constant -> CONST_INTEGER .
+    AND             reduce using rule 87 (constant -> CONST_INTEGER .)
+    DIV             reduce using rule 87 (constant -> CONST_INTEGER .)
+    DIVIDE          reduce using rule 87 (constant -> CONST_INTEGER .)
+    TIMES           reduce using rule 87 (constant -> CONST_INTEGER .)
+    GE              reduce using rule 87 (constant -> CONST_INTEGER .)
+    GT              reduce using rule 87 (constant -> CONST_INTEGER .)
+    LE              reduce using rule 87 (constant -> CONST_INTEGER .)
+    LT              reduce using rule 87 (constant -> CONST_INTEGER .)
+    NE              reduce using rule 87 (constant -> CONST_INTEGER .)
+    EQ              reduce using rule 87 (constant -> CONST_INTEGER .)
+    OR              reduce using rule 87 (constant -> CONST_INTEGER .)
+    MINUS           reduce using rule 87 (constant -> CONST_INTEGER .)
+    PLUS            reduce using rule 87 (constant -> CONST_INTEGER .)
+    DO              reduce using rule 87 (constant -> CONST_INTEGER .)
+    THEN            reduce using rule 87 (constant -> CONST_INTEGER .)
+    )               reduce using rule 87 (constant -> CONST_INTEGER .)
+    ,               reduce using rule 87 (constant -> CONST_INTEGER .)
+    ]               reduce using rule 87 (constant -> CONST_INTEGER .)
+    END             reduce using rule 87 (constant -> CONST_INTEGER .)
+    ;               reduce using rule 87 (constant -> CONST_INTEGER .)
+    ELSE            reduce using rule 87 (constant -> CONST_INTEGER .)
+
+
+state 85
+
+    (52) if_else_statement -> IF expression . THEN statement ELSE statement
+    (51) if_statement -> IF expression . THEN statement
+    THEN            shift and go to state 118
+
+
+state 86
+
+    (44) write_statement -> WRITE ( . expression_list )
+    (45) expression_list -> . expression_list , expression
+    (46) expression_list -> . expression
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression_list                shift and go to state 119
+    expression                     shift and go to state 120
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 87
+
+    (41) read_statement -> READ ( . variable_list )
+    (42) variable_list -> . variable_list , variable
+    (43) variable_list -> . variable
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    ID              shift and go to state 123
+
+    variable_list                  shift and go to state 121
+    variable                       shift and go to state 122
+    indexed_variable               shift and go to state 63
+
+state 88
+
+    (83) indexed_variable -> ID [ . expression ]
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression                     shift and go to state 124
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 89
+
+    (39) assignment_statement -> variable ASSIGN . expression
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    variable                       shift and go to state 79
+    expression                     shift and go to state 125
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    indexed_variable               shift and go to state 63
+
+state 90
+
+    (24) function_declaration -> FUNCTION ID ( ) . : type ; block
+    :               shift and go to state 126
+
+
+state 91
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function . ) : type ; block
+    (26) variable_declaration_list_function -> variable_declaration_list_function . ; variable_declaration
+    )               shift and go to state 127
+    ;               shift and go to state 128
+
+
+state 92
+
+    (27) variable_declaration_list_function -> variable_declaration .
+    )               reduce using rule 27 (variable_declaration_list_function -> variable_declaration .)
+    ;               reduce using rule 27 (variable_declaration_list_function -> variable_declaration .)
+
+
+state 93
+
+    (12) array_type -> ARRAY [ index_range . ] OF simple_type
+    ]               shift and go to state 129
+
+
+state 94
+
+    (13) index_range -> CONST_INTEGER . RANGE CONST_INTEGER
+    RANGE           shift and go to state 130
+
+
+state 95
+
+    (28) procedure_declaration -> PROCEDURE ID ; block .
+    ;               reduce using rule 28 (procedure_declaration -> PROCEDURE ID ; block .)
+
+
+state 96
+
+    (31) statement_list -> statement_list ; statement .
+    END             reduce using rule 31 (statement_list -> statement_list ; statement .)
+    ;               reduce using rule 31 (statement_list -> statement_list ; statement .)
+
+
+state 97
+
+    (53) while_statement -> WHILE expression DO . statement
+    (33) statement -> . structured_statement
+    (34) statement -> . simple_statement
+    (47) structured_statement -> . while_statement
+    (48) structured_statement -> . if_else_statement
+    (49) structured_statement -> . if_statement
+    (50) structured_statement -> . statement_part
+    (35) simple_statement -> . write_statement
+    (36) simple_statement -> . read_statement
+    (37) simple_statement -> . procedure_statement
+    (38) simple_statement -> . assignment_statement
+    (53) while_statement -> . WHILE expression DO statement
+    (52) if_else_statement -> . IF expression THEN statement ELSE statement
+    (51) if_statement -> . IF expression THEN statement
+    (29) statement_part -> . compound_statement
+    (44) write_statement -> . WRITE ( expression_list )
+    (41) read_statement -> . READ ( variable_list )
+    (40) procedure_statement -> . ID
+    (39) assignment_statement -> . variable ASSIGN expression
+    (30) compound_statement -> . BEGIN statement_list END
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    WHILE           shift and go to state 57
+    IF              shift and go to state 58
+    WRITE           shift and go to state 59
+    READ            shift and go to state 60
+    ID              shift and go to state 61
+    BEGIN           shift and go to state 28
+
+    statement                      shift and go to state 131
+    structured_statement           shift and go to state 47
+    simple_statement               shift and go to state 48
+    while_statement                shift and go to state 49
+    if_else_statement              shift and go to state 50
+    if_statement                   shift and go to state 51
+    statement_part                 shift and go to state 52
+    write_statement                shift and go to state 53
+    read_statement                 shift and go to state 54
+    procedure_statement            shift and go to state 55
+    assignment_statement           shift and go to state 56
+    compound_statement             shift and go to state 26
+    variable                       shift and go to state 62
+    indexed_variable               shift and go to state 63
+
+state 98
+
+    (54) expression -> simple_expression relational_operator . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    simple_expression              shift and go to state 132
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 99
+
+    (56) simple_expression -> simple_expression adding_operator . term
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    term                           shift and go to state 133
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 100
+
+    (66) relational_operator -> GE .
+    MINUS           reduce using rule 66 (relational_operator -> GE .)
+    PLUS            reduce using rule 66 (relational_operator -> GE .)
+    NOT             reduce using rule 66 (relational_operator -> GE .)
+    (               reduce using rule 66 (relational_operator -> GE .)
+    ID              reduce using rule 66 (relational_operator -> GE .)
+    CONST_BOOL      reduce using rule 66 (relational_operator -> GE .)
+    CONST_CHARACTER reduce using rule 66 (relational_operator -> GE .)
+    REAL            reduce using rule 66 (relational_operator -> GE .)
+    CONST_INTEGER   reduce using rule 66 (relational_operator -> GE .)
+
+
+state 101
+
+    (67) relational_operator -> GT .
+    MINUS           reduce using rule 67 (relational_operator -> GT .)
+    PLUS            reduce using rule 67 (relational_operator -> GT .)
+    NOT             reduce using rule 67 (relational_operator -> GT .)
+    (               reduce using rule 67 (relational_operator -> GT .)
+    ID              reduce using rule 67 (relational_operator -> GT .)
+    CONST_BOOL      reduce using rule 67 (relational_operator -> GT .)
+    CONST_CHARACTER reduce using rule 67 (relational_operator -> GT .)
+    REAL            reduce using rule 67 (relational_operator -> GT .)
+    CONST_INTEGER   reduce using rule 67 (relational_operator -> GT .)
+
+
+state 102
+
+    (68) relational_operator -> LE .
+    MINUS           reduce using rule 68 (relational_operator -> LE .)
+    PLUS            reduce using rule 68 (relational_operator -> LE .)
+    NOT             reduce using rule 68 (relational_operator -> LE .)
+    (               reduce using rule 68 (relational_operator -> LE .)
+    ID              reduce using rule 68 (relational_operator -> LE .)
+    CONST_BOOL      reduce using rule 68 (relational_operator -> LE .)
+    CONST_CHARACTER reduce using rule 68 (relational_operator -> LE .)
+    REAL            reduce using rule 68 (relational_operator -> LE .)
+    CONST_INTEGER   reduce using rule 68 (relational_operator -> LE .)
+
+
+state 103
+
+    (69) relational_operator -> LT .
+    MINUS           reduce using rule 69 (relational_operator -> LT .)
+    PLUS            reduce using rule 69 (relational_operator -> LT .)
+    NOT             reduce using rule 69 (relational_operator -> LT .)
+    (               reduce using rule 69 (relational_operator -> LT .)
+    ID              reduce using rule 69 (relational_operator -> LT .)
+    CONST_BOOL      reduce using rule 69 (relational_operator -> LT .)
+    CONST_CHARACTER reduce using rule 69 (relational_operator -> LT .)
+    REAL            reduce using rule 69 (relational_operator -> LT .)
+    CONST_INTEGER   reduce using rule 69 (relational_operator -> LT .)
+
+
+state 104
+
+    (70) relational_operator -> NE .
+    MINUS           reduce using rule 70 (relational_operator -> NE .)
+    PLUS            reduce using rule 70 (relational_operator -> NE .)
+    NOT             reduce using rule 70 (relational_operator -> NE .)
+    (               reduce using rule 70 (relational_operator -> NE .)
+    ID              reduce using rule 70 (relational_operator -> NE .)
+    CONST_BOOL      reduce using rule 70 (relational_operator -> NE .)
+    CONST_CHARACTER reduce using rule 70 (relational_operator -> NE .)
+    REAL            reduce using rule 70 (relational_operator -> NE .)
+    CONST_INTEGER   reduce using rule 70 (relational_operator -> NE .)
+
+
+state 105
+
+    (71) relational_operator -> EQ .
+    MINUS           reduce using rule 71 (relational_operator -> EQ .)
+    PLUS            reduce using rule 71 (relational_operator -> EQ .)
+    NOT             reduce using rule 71 (relational_operator -> EQ .)
+    (               reduce using rule 71 (relational_operator -> EQ .)
+    ID              reduce using rule 71 (relational_operator -> EQ .)
+    CONST_BOOL      reduce using rule 71 (relational_operator -> EQ .)
+    CONST_CHARACTER reduce using rule 71 (relational_operator -> EQ .)
+    REAL            reduce using rule 71 (relational_operator -> EQ .)
+    CONST_INTEGER   reduce using rule 71 (relational_operator -> EQ .)
+
+
+state 106
+
+    (74) adding_operator -> OR .
+    NOT             reduce using rule 74 (adding_operator -> OR .)
+    (               reduce using rule 74 (adding_operator -> OR .)
+    ID              reduce using rule 74 (adding_operator -> OR .)
+    CONST_BOOL      reduce using rule 74 (adding_operator -> OR .)
+    CONST_CHARACTER reduce using rule 74 (adding_operator -> OR .)
+    REAL            reduce using rule 74 (adding_operator -> OR .)
+    CONST_INTEGER   reduce using rule 74 (adding_operator -> OR .)
+
+
+state 107
+
+    (75) adding_operator -> MINUS .
+    NOT             reduce using rule 75 (adding_operator -> MINUS .)
+    (               reduce using rule 75 (adding_operator -> MINUS .)
+    ID              reduce using rule 75 (adding_operator -> MINUS .)
+    CONST_BOOL      reduce using rule 75 (adding_operator -> MINUS .)
+    CONST_CHARACTER reduce using rule 75 (adding_operator -> MINUS .)
+    REAL            reduce using rule 75 (adding_operator -> MINUS .)
+    CONST_INTEGER   reduce using rule 75 (adding_operator -> MINUS .)
+
+
+state 108
+
+    (76) adding_operator -> PLUS .
+    NOT             reduce using rule 76 (adding_operator -> PLUS .)
+    (               reduce using rule 76 (adding_operator -> PLUS .)
+    ID              reduce using rule 76 (adding_operator -> PLUS .)
+    CONST_BOOL      reduce using rule 76 (adding_operator -> PLUS .)
+    CONST_CHARACTER reduce using rule 76 (adding_operator -> PLUS .)
+    REAL            reduce using rule 76 (adding_operator -> PLUS .)
+    CONST_INTEGER   reduce using rule 76 (adding_operator -> PLUS .)
+
+
+state 109
+
+    (59) term -> term multiplying_operator . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    factor                         shift and go to state 134
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 110
+
+    (77) multiplying_operator -> AND .
+    NOT             reduce using rule 77 (multiplying_operator -> AND .)
+    (               reduce using rule 77 (multiplying_operator -> AND .)
+    ID              reduce using rule 77 (multiplying_operator -> AND .)
+    CONST_BOOL      reduce using rule 77 (multiplying_operator -> AND .)
+    CONST_CHARACTER reduce using rule 77 (multiplying_operator -> AND .)
+    REAL            reduce using rule 77 (multiplying_operator -> AND .)
+    CONST_INTEGER   reduce using rule 77 (multiplying_operator -> AND .)
+
+
+state 111
+
+    (78) multiplying_operator -> DIV .
+    NOT             reduce using rule 78 (multiplying_operator -> DIV .)
+    (               reduce using rule 78 (multiplying_operator -> DIV .)
+    ID              reduce using rule 78 (multiplying_operator -> DIV .)
+    CONST_BOOL      reduce using rule 78 (multiplying_operator -> DIV .)
+    CONST_CHARACTER reduce using rule 78 (multiplying_operator -> DIV .)
+    REAL            reduce using rule 78 (multiplying_operator -> DIV .)
+    CONST_INTEGER   reduce using rule 78 (multiplying_operator -> DIV .)
+
+
+state 112
+
+    (79) multiplying_operator -> DIVIDE .
+    NOT             reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    (               reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    ID              reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    CONST_BOOL      reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    CONST_CHARACTER reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    REAL            reduce using rule 79 (multiplying_operator -> DIVIDE .)
+    CONST_INTEGER   reduce using rule 79 (multiplying_operator -> DIVIDE .)
+
+
+state 113
+
+    (80) multiplying_operator -> TIMES .
+    NOT             reduce using rule 80 (multiplying_operator -> TIMES .)
+    (               reduce using rule 80 (multiplying_operator -> TIMES .)
+    ID              reduce using rule 80 (multiplying_operator -> TIMES .)
+    CONST_BOOL      reduce using rule 80 (multiplying_operator -> TIMES .)
+    CONST_CHARACTER reduce using rule 80 (multiplying_operator -> TIMES .)
+    REAL            reduce using rule 80 (multiplying_operator -> TIMES .)
+    CONST_INTEGER   reduce using rule 80 (multiplying_operator -> TIMES .)
+
+
+state 114
+
+    (57) simple_expression -> sign term .
+    (59) term -> term . multiplying_operator factor
+    (77) multiplying_operator -> . AND
+    (78) multiplying_operator -> . DIV
+    (79) multiplying_operator -> . DIVIDE
+    (80) multiplying_operator -> . TIMES
+    GE              reduce using rule 57 (simple_expression -> sign term .)
+    GT              reduce using rule 57 (simple_expression -> sign term .)
+    LE              reduce using rule 57 (simple_expression -> sign term .)
+    LT              reduce using rule 57 (simple_expression -> sign term .)
+    NE              reduce using rule 57 (simple_expression -> sign term .)
+    EQ              reduce using rule 57 (simple_expression -> sign term .)
+    OR              reduce using rule 57 (simple_expression -> sign term .)
+    MINUS           reduce using rule 57 (simple_expression -> sign term .)
+    PLUS            reduce using rule 57 (simple_expression -> sign term .)
+    DO              reduce using rule 57 (simple_expression -> sign term .)
+    THEN            reduce using rule 57 (simple_expression -> sign term .)
+    )               reduce using rule 57 (simple_expression -> sign term .)
+    ,               reduce using rule 57 (simple_expression -> sign term .)
+    ]               reduce using rule 57 (simple_expression -> sign term .)
+    END             reduce using rule 57 (simple_expression -> sign term .)
+    ;               reduce using rule 57 (simple_expression -> sign term .)
+    ELSE            reduce using rule 57 (simple_expression -> sign term .)
+    AND             shift and go to state 110
+    DIV             shift and go to state 111
+    DIVIDE          shift and go to state 112
+    TIMES           shift and go to state 113
+
+    multiplying_operator           shift and go to state 109
+
+state 115
+
+    (61) factor -> NOT factor .
+    AND             reduce using rule 61 (factor -> NOT factor .)
+    DIV             reduce using rule 61 (factor -> NOT factor .)
+    DIVIDE          reduce using rule 61 (factor -> NOT factor .)
+    TIMES           reduce using rule 61 (factor -> NOT factor .)
+    GE              reduce using rule 61 (factor -> NOT factor .)
+    GT              reduce using rule 61 (factor -> NOT factor .)
+    LE              reduce using rule 61 (factor -> NOT factor .)
+    LT              reduce using rule 61 (factor -> NOT factor .)
+    NE              reduce using rule 61 (factor -> NOT factor .)
+    EQ              reduce using rule 61 (factor -> NOT factor .)
+    OR              reduce using rule 61 (factor -> NOT factor .)
+    MINUS           reduce using rule 61 (factor -> NOT factor .)
+    PLUS            reduce using rule 61 (factor -> NOT factor .)
+    DO              reduce using rule 61 (factor -> NOT factor .)
+    THEN            reduce using rule 61 (factor -> NOT factor .)
+    )               reduce using rule 61 (factor -> NOT factor .)
+    ,               reduce using rule 61 (factor -> NOT factor .)
+    ]               reduce using rule 61 (factor -> NOT factor .)
+    END             reduce using rule 61 (factor -> NOT factor .)
+    ;               reduce using rule 61 (factor -> NOT factor .)
+    ELSE            reduce using rule 61 (factor -> NOT factor .)
+
+
+state 116
+
+    (62) factor -> ( expression . )
+    )               shift and go to state 135
+
+
+state 117
+
+    (65) factor -> ID ( . expression_list )
+    (45) expression_list -> . expression_list , expression
+    (46) expression_list -> . expression
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression_list                shift and go to state 136
+    expression                     shift and go to state 120
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 118
+
+    (52) if_else_statement -> IF expression THEN . statement ELSE statement
+    (51) if_statement -> IF expression THEN . statement
+    (33) statement -> . structured_statement
+    (34) statement -> . simple_statement
+    (47) structured_statement -> . while_statement
+    (48) structured_statement -> . if_else_statement
+    (49) structured_statement -> . if_statement
+    (50) structured_statement -> . statement_part
+    (35) simple_statement -> . write_statement
+    (36) simple_statement -> . read_statement
+    (37) simple_statement -> . procedure_statement
+    (38) simple_statement -> . assignment_statement
+    (53) while_statement -> . WHILE expression DO statement
+    (52) if_else_statement -> . IF expression THEN statement ELSE statement
+    (51) if_statement -> . IF expression THEN statement
+    (29) statement_part -> . compound_statement
+    (44) write_statement -> . WRITE ( expression_list )
+    (41) read_statement -> . READ ( variable_list )
+    (40) procedure_statement -> . ID
+    (39) assignment_statement -> . variable ASSIGN expression
+    (30) compound_statement -> . BEGIN statement_list END
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    WHILE           shift and go to state 57
+    IF              shift and go to state 58
+    WRITE           shift and go to state 59
+    READ            shift and go to state 60
+    ID              shift and go to state 61
+    BEGIN           shift and go to state 28
+
+    statement                      shift and go to state 137
+    structured_statement           shift and go to state 47
+    simple_statement               shift and go to state 48
+    while_statement                shift and go to state 49
+    if_else_statement              shift and go to state 50
+    if_statement                   shift and go to state 51
+    statement_part                 shift and go to state 52
+    write_statement                shift and go to state 53
+    read_statement                 shift and go to state 54
+    procedure_statement            shift and go to state 55
+    assignment_statement           shift and go to state 56
+    compound_statement             shift and go to state 26
+    variable                       shift and go to state 62
+    indexed_variable               shift and go to state 63
+
+state 119
+
+    (44) write_statement -> WRITE ( expression_list . )
+    (45) expression_list -> expression_list . , expression
+    )               shift and go to state 138
+    ,               shift and go to state 139
+
+
+state 120
+
+    (46) expression_list -> expression .
+    )               reduce using rule 46 (expression_list -> expression .)
+    ,               reduce using rule 46 (expression_list -> expression .)
+
+
+state 121
+
+    (41) read_statement -> READ ( variable_list . )
+    (42) variable_list -> variable_list . , variable
+    )               shift and go to state 140
+    ,               shift and go to state 141
+
+
+state 122
+
+    (43) variable_list -> variable .
+    )               reduce using rule 43 (variable_list -> variable .)
+    ,               reduce using rule 43 (variable_list -> variable .)
+
+
+state 123
+
+    (82) variable -> ID .
+    (83) indexed_variable -> ID . [ expression ]
+    )               reduce using rule 82 (variable -> ID .)
+    ,               reduce using rule 82 (variable -> ID .)
+    [               shift and go to state 88
+
+
+state 124
+
+    (83) indexed_variable -> ID [ expression . ]
+    ]               shift and go to state 142
+
+
+state 125
+
+    (39) assignment_statement -> variable ASSIGN expression .
+    END             reduce using rule 39 (assignment_statement -> variable ASSIGN expression .)
+    ;               reduce using rule 39 (assignment_statement -> variable ASSIGN expression .)
+    ELSE            reduce using rule 39 (assignment_statement -> variable ASSIGN expression .)
+
+
+state 126
+
+    (24) function_declaration -> FUNCTION ID ( ) : . type ; block
+    (10) type -> . array_type
+    (11) type -> . simple_type
+    (12) array_type -> . ARRAY [ index_range ] OF simple_type
+    (14) simple_type -> . type_identifier
+    (15) type_identifier -> . predefined_type
+    (16) type_identifier -> . ID
+    (17) predefined_type -> . FLOAT
+    (18) predefined_type -> . BOOLEAN
+    (19) predefined_type -> . INTEGER
+    ARRAY           shift and go to state 35
+    ID              shift and go to state 38
+    FLOAT           shift and go to state 39
+    BOOLEAN         shift and go to state 40
+    INTEGER         shift and go to state 41
+
+    type                           shift and go to state 143
+    array_type                     shift and go to state 33
+    simple_type                    shift and go to state 34
+    type_identifier                shift and go to state 36
+    predefined_type                shift and go to state 37
+
+state 127
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function ) . : type ; block
+    :               shift and go to state 144
+
+
+state 128
+
+    (26) variable_declaration_list_function -> variable_declaration_list_function ; . variable_declaration
+    (7) variable_declaration -> . ID_list : type
+    (8) ID_list -> . ID
+    (9) ID_list -> . ID_list , ID
+    ID              shift and go to state 15
+
+    variable_declaration           shift and go to state 145
+    ID_list                        shift and go to state 14
+
+state 129
+
+    (12) array_type -> ARRAY [ index_range ] . OF simple_type
+    OF              shift and go to state 146
+
+
+state 130
+
+    (13) index_range -> CONST_INTEGER RANGE . CONST_INTEGER
+    CONST_INTEGER   shift and go to state 147
+
+
+state 131
+
+    (53) while_statement -> WHILE expression DO statement .
+    END             reduce using rule 53 (while_statement -> WHILE expression DO statement .)
+    ;               reduce using rule 53 (while_statement -> WHILE expression DO statement .)
+    ELSE            reduce using rule 53 (while_statement -> WHILE expression DO statement .)
+
+
+state 132
+
+    (54) expression -> simple_expression relational_operator simple_expression .
+    (56) simple_expression -> simple_expression . adding_operator term
+    (74) adding_operator -> . OR
+    (75) adding_operator -> . MINUS
+    (76) adding_operator -> . PLUS
+    DO              reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    THEN            reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    )               reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    ,               reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    ]               reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    END             reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    ;               reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    ELSE            reduce using rule 54 (expression -> simple_expression relational_operator simple_expression .)
+    OR              shift and go to state 106
+    MINUS           shift and go to state 107
+    PLUS            shift and go to state 108
+
+    adding_operator                shift and go to state 99
+
+state 133
+
+    (56) simple_expression -> simple_expression adding_operator term .
+    (59) term -> term . multiplying_operator factor
+    (77) multiplying_operator -> . AND
+    (78) multiplying_operator -> . DIV
+    (79) multiplying_operator -> . DIVIDE
+    (80) multiplying_operator -> . TIMES
+    GE              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    GT              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    LE              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    LT              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    NE              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    EQ              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    OR              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    MINUS           reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    PLUS            reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    DO              reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    THEN            reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    )               reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    ,               reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    ]               reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    END             reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    ;               reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    ELSE            reduce using rule 56 (simple_expression -> simple_expression adding_operator term .)
+    AND             shift and go to state 110
+    DIV             shift and go to state 111
+    DIVIDE          shift and go to state 112
+    TIMES           shift and go to state 113
+
+    multiplying_operator           shift and go to state 109
+
+state 134
+
+    (59) term -> term multiplying_operator factor .
+    AND             reduce using rule 59 (term -> term multiplying_operator factor .)
+    DIV             reduce using rule 59 (term -> term multiplying_operator factor .)
+    DIVIDE          reduce using rule 59 (term -> term multiplying_operator factor .)
+    TIMES           reduce using rule 59 (term -> term multiplying_operator factor .)
+    GE              reduce using rule 59 (term -> term multiplying_operator factor .)
+    GT              reduce using rule 59 (term -> term multiplying_operator factor .)
+    LE              reduce using rule 59 (term -> term multiplying_operator factor .)
+    LT              reduce using rule 59 (term -> term multiplying_operator factor .)
+    NE              reduce using rule 59 (term -> term multiplying_operator factor .)
+    EQ              reduce using rule 59 (term -> term multiplying_operator factor .)
+    OR              reduce using rule 59 (term -> term multiplying_operator factor .)
+    MINUS           reduce using rule 59 (term -> term multiplying_operator factor .)
+    PLUS            reduce using rule 59 (term -> term multiplying_operator factor .)
+    DO              reduce using rule 59 (term -> term multiplying_operator factor .)
+    THEN            reduce using rule 59 (term -> term multiplying_operator factor .)
+    )               reduce using rule 59 (term -> term multiplying_operator factor .)
+    ,               reduce using rule 59 (term -> term multiplying_operator factor .)
+    ]               reduce using rule 59 (term -> term multiplying_operator factor .)
+    END             reduce using rule 59 (term -> term multiplying_operator factor .)
+    ;               reduce using rule 59 (term -> term multiplying_operator factor .)
+    ELSE            reduce using rule 59 (term -> term multiplying_operator factor .)
+
+
+state 135
+
+    (62) factor -> ( expression ) .
+    AND             reduce using rule 62 (factor -> ( expression ) .)
+    DIV             reduce using rule 62 (factor -> ( expression ) .)
+    DIVIDE          reduce using rule 62 (factor -> ( expression ) .)
+    TIMES           reduce using rule 62 (factor -> ( expression ) .)
+    GE              reduce using rule 62 (factor -> ( expression ) .)
+    GT              reduce using rule 62 (factor -> ( expression ) .)
+    LE              reduce using rule 62 (factor -> ( expression ) .)
+    LT              reduce using rule 62 (factor -> ( expression ) .)
+    NE              reduce using rule 62 (factor -> ( expression ) .)
+    EQ              reduce using rule 62 (factor -> ( expression ) .)
+    OR              reduce using rule 62 (factor -> ( expression ) .)
+    MINUS           reduce using rule 62 (factor -> ( expression ) .)
+    PLUS            reduce using rule 62 (factor -> ( expression ) .)
+    DO              reduce using rule 62 (factor -> ( expression ) .)
+    THEN            reduce using rule 62 (factor -> ( expression ) .)
+    )               reduce using rule 62 (factor -> ( expression ) .)
+    ,               reduce using rule 62 (factor -> ( expression ) .)
+    ]               reduce using rule 62 (factor -> ( expression ) .)
+    END             reduce using rule 62 (factor -> ( expression ) .)
+    ;               reduce using rule 62 (factor -> ( expression ) .)
+    ELSE            reduce using rule 62 (factor -> ( expression ) .)
+
+
+state 136
+
+    (65) factor -> ID ( expression_list . )
+    (45) expression_list -> expression_list . , expression
+    )               shift and go to state 148
+    ,               shift and go to state 139
+
+
+state 137
+
+    (52) if_else_statement -> IF expression THEN statement . ELSE statement
+    (51) if_statement -> IF expression THEN statement .
+  ! shift/reduce conflict for ELSE resolved as shift
+    ELSE            shift and go to state 149
+    END             reduce using rule 51 (if_statement -> IF expression THEN statement .)
+    ;               reduce using rule 51 (if_statement -> IF expression THEN statement .)
+
+
+state 138
+
+    (44) write_statement -> WRITE ( expression_list ) .
+    END             reduce using rule 44 (write_statement -> WRITE ( expression_list ) .)
+    ;               reduce using rule 44 (write_statement -> WRITE ( expression_list ) .)
+    ELSE            reduce using rule 44 (write_statement -> WRITE ( expression_list ) .)
+
+
+state 139
+
+    (45) expression_list -> expression_list , . expression
+    (54) expression -> . simple_expression relational_operator simple_expression
+    (55) expression -> . simple_expression
+    (56) simple_expression -> . simple_expression adding_operator term
+    (57) simple_expression -> . sign term
+    (58) simple_expression -> . term
+    (72) sign -> . MINUS
+    (73) sign -> . PLUS
+    (59) term -> . term multiplying_operator factor
+    (60) term -> . factor
+    (61) factor -> . NOT factor
+    (62) factor -> . ( expression )
+    (63) factor -> . constant
+    (64) factor -> . variable
+    (65) factor -> . ID ( expression_list )
+    (84) constant -> . CONST_BOOL
+    (85) constant -> . CONST_CHARACTER
+    (86) constant -> . REAL
+    (87) constant -> . CONST_INTEGER
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    MINUS           shift and go to state 73
+    PLUS            shift and go to state 74
+    NOT             shift and go to state 76
+    (               shift and go to state 77
+    ID              shift and go to state 80
+    CONST_BOOL      shift and go to state 81
+    CONST_CHARACTER shift and go to state 82
+    REAL            shift and go to state 83
+    CONST_INTEGER   shift and go to state 84
+
+    expression                     shift and go to state 150
+    simple_expression              shift and go to state 70
+    term                           shift and go to state 71
+    sign                           shift and go to state 72
+    factor                         shift and go to state 75
+    constant                       shift and go to state 78
+    variable                       shift and go to state 79
+    indexed_variable               shift and go to state 63
+
+state 140
+
+    (41) read_statement -> READ ( variable_list ) .
+    END             reduce using rule 41 (read_statement -> READ ( variable_list ) .)
+    ;               reduce using rule 41 (read_statement -> READ ( variable_list ) .)
+    ELSE            reduce using rule 41 (read_statement -> READ ( variable_list ) .)
+
+
+state 141
+
+    (42) variable_list -> variable_list , . variable
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    ID              shift and go to state 123
+
+    variable                       shift and go to state 151
+    indexed_variable               shift and go to state 63
+
+state 142
+
+    (83) indexed_variable -> ID [ expression ] .
+    ASSIGN          reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    AND             reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    DIV             reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    DIVIDE          reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    TIMES           reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    GE              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    GT              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    LE              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    LT              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    NE              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    EQ              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    OR              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    MINUS           reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    PLUS            reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    DO              reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    THEN            reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    )               reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    ,               reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    ]               reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    END             reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    ;               reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+    ELSE            reduce using rule 83 (indexed_variable -> ID [ expression ] .)
+
+
+state 143
+
+    (24) function_declaration -> FUNCTION ID ( ) : type . ; block
+    ;               shift and go to state 152
+
+
+state 144
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : . type ; block
+    (10) type -> . array_type
+    (11) type -> . simple_type
+    (12) array_type -> . ARRAY [ index_range ] OF simple_type
+    (14) simple_type -> . type_identifier
+    (15) type_identifier -> . predefined_type
+    (16) type_identifier -> . ID
+    (17) predefined_type -> . FLOAT
+    (18) predefined_type -> . BOOLEAN
+    (19) predefined_type -> . INTEGER
+    ARRAY           shift and go to state 35
+    ID              shift and go to state 38
+    FLOAT           shift and go to state 39
+    BOOLEAN         shift and go to state 40
+    INTEGER         shift and go to state 41
+
+    type                           shift and go to state 153
+    array_type                     shift and go to state 33
+    simple_type                    shift and go to state 34
+    type_identifier                shift and go to state 36
+    predefined_type                shift and go to state 37
+
+state 145
+
+    (26) variable_declaration_list_function -> variable_declaration_list_function ; variable_declaration .
+    )               reduce using rule 26 (variable_declaration_list_function -> variable_declaration_list_function ; variable_declaration .)
+    ;               reduce using rule 26 (variable_declaration_list_function -> variable_declaration_list_function ; variable_declaration .)
+
+
+state 146
+
+    (12) array_type -> ARRAY [ index_range ] OF . simple_type
+    (14) simple_type -> . type_identifier
+    (15) type_identifier -> . predefined_type
+    (16) type_identifier -> . ID
+    (17) predefined_type -> . FLOAT
+    (18) predefined_type -> . BOOLEAN
+    (19) predefined_type -> . INTEGER
+    ID              shift and go to state 38
+    FLOAT           shift and go to state 39
+    BOOLEAN         shift and go to state 40
+    INTEGER         shift and go to state 41
+
+    simple_type                    shift and go to state 154
+    type_identifier                shift and go to state 36
+    predefined_type                shift and go to state 37
+
+state 147
+
+    (13) index_range -> CONST_INTEGER RANGE CONST_INTEGER .
+    ]               reduce using rule 13 (index_range -> CONST_INTEGER RANGE CONST_INTEGER .)
+
+
+state 148
+
+    (65) factor -> ID ( expression_list ) .
+    AND             reduce using rule 65 (factor -> ID ( expression_list ) .)
+    DIV             reduce using rule 65 (factor -> ID ( expression_list ) .)
+    DIVIDE          reduce using rule 65 (factor -> ID ( expression_list ) .)
+    TIMES           reduce using rule 65 (factor -> ID ( expression_list ) .)
+    GE              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    GT              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    LE              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    LT              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    NE              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    EQ              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    OR              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    MINUS           reduce using rule 65 (factor -> ID ( expression_list ) .)
+    PLUS            reduce using rule 65 (factor -> ID ( expression_list ) .)
+    DO              reduce using rule 65 (factor -> ID ( expression_list ) .)
+    THEN            reduce using rule 65 (factor -> ID ( expression_list ) .)
+    )               reduce using rule 65 (factor -> ID ( expression_list ) .)
+    ,               reduce using rule 65 (factor -> ID ( expression_list ) .)
+    ]               reduce using rule 65 (factor -> ID ( expression_list ) .)
+    END             reduce using rule 65 (factor -> ID ( expression_list ) .)
+    ;               reduce using rule 65 (factor -> ID ( expression_list ) .)
+    ELSE            reduce using rule 65 (factor -> ID ( expression_list ) .)
+
+
+state 149
+
+    (52) if_else_statement -> IF expression THEN statement ELSE . statement
+    (33) statement -> . structured_statement
+    (34) statement -> . simple_statement
+    (47) structured_statement -> . while_statement
+    (48) structured_statement -> . if_else_statement
+    (49) structured_statement -> . if_statement
+    (50) structured_statement -> . statement_part
+    (35) simple_statement -> . write_statement
+    (36) simple_statement -> . read_statement
+    (37) simple_statement -> . procedure_statement
+    (38) simple_statement -> . assignment_statement
+    (53) while_statement -> . WHILE expression DO statement
+    (52) if_else_statement -> . IF expression THEN statement ELSE statement
+    (51) if_statement -> . IF expression THEN statement
+    (29) statement_part -> . compound_statement
+    (44) write_statement -> . WRITE ( expression_list )
+    (41) read_statement -> . READ ( variable_list )
+    (40) procedure_statement -> . ID
+    (39) assignment_statement -> . variable ASSIGN expression
+    (30) compound_statement -> . BEGIN statement_list END
+    (81) variable -> . indexed_variable
+    (82) variable -> . ID
+    (83) indexed_variable -> . ID [ expression ]
+    WHILE           shift and go to state 57
+    IF              shift and go to state 58
+    WRITE           shift and go to state 59
+    READ            shift and go to state 60
+    ID              shift and go to state 61
+    BEGIN           shift and go to state 28
+
+    statement                      shift and go to state 155
+    structured_statement           shift and go to state 47
+    simple_statement               shift and go to state 48
+    while_statement                shift and go to state 49
+    if_else_statement              shift and go to state 50
+    if_statement                   shift and go to state 51
+    statement_part                 shift and go to state 52
+    write_statement                shift and go to state 53
+    read_statement                 shift and go to state 54
+    procedure_statement            shift and go to state 55
+    assignment_statement           shift and go to state 56
+    compound_statement             shift and go to state 26
+    variable                       shift and go to state 62
+    indexed_variable               shift and go to state 63
+
+state 150
+
+    (45) expression_list -> expression_list , expression .
+    )               reduce using rule 45 (expression_list -> expression_list , expression .)
+    ,               reduce using rule 45 (expression_list -> expression_list , expression .)
+
+
+state 151
+
+    (42) variable_list -> variable_list , variable .
+    )               reduce using rule 42 (variable_list -> variable_list , variable .)
+    ,               reduce using rule 42 (variable_list -> variable_list , variable .)
+
+
+state 152
+
+    (24) function_declaration -> FUNCTION ID ( ) : type ; . block
+    (2) block -> . variable_declaration_part function_declaration_part procedure_declaration_part statement_part
+    (3) variable_declaration_part -> . VAR variable_declaration_list
+    (4) variable_declaration_part -> . empty
+    (88) empty -> .
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 88 (empty -> .)
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    block                          shift and go to state 156
+    variable_declaration_part      shift and go to state 6
+    empty                          shift and go to state 8
+
+state 153
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : type . ; block
+    ;               shift and go to state 157
+
+
+state 154
+
+    (12) array_type -> ARRAY [ index_range ] OF simple_type .
+    ;               reduce using rule 12 (array_type -> ARRAY [ index_range ] OF simple_type .)
+    )               reduce using rule 12 (array_type -> ARRAY [ index_range ] OF simple_type .)
+
+
+state 155
+
+    (52) if_else_statement -> IF expression THEN statement ELSE statement .
+    END             reduce using rule 52 (if_else_statement -> IF expression THEN statement ELSE statement .)
+    ;               reduce using rule 52 (if_else_statement -> IF expression THEN statement ELSE statement .)
+    ELSE            reduce using rule 52 (if_else_statement -> IF expression THEN statement ELSE statement .)
+
+
+state 156
+
+    (24) function_declaration -> FUNCTION ID ( ) : type ; block .
+    ;               reduce using rule 24 (function_declaration -> FUNCTION ID ( ) : type ; block .)
+
+
+state 157
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : type ; . block
+    (2) block -> . variable_declaration_part function_declaration_part procedure_declaration_part statement_part
+    (3) variable_declaration_part -> . VAR variable_declaration_list
+    (4) variable_declaration_part -> . empty
+    (88) empty -> .
+    VAR             shift and go to state 7
+    FUNCTION        reduce using rule 88 (empty -> .)
+    PROCEDURE       reduce using rule 88 (empty -> .)
+    BEGIN           reduce using rule 88 (empty -> .)
+
+    block                          shift and go to state 158
+    variable_declaration_part      shift and go to state 6
+    empty                          shift and go to state 8
+
+state 158
+
+    (25) function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : type ; block .
+    ;               reduce using rule 25 (function_declaration -> FUNCTION ID ( variable_declaration_list_function ) : type ; block .)
+
+
+Conflicts:
+
+shift/reduce conflict for ELSE in state 137 resolved as shift
